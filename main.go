@@ -11,6 +11,7 @@ var (
 	proxyPort    = flag.String("proxy-port", ":11438", "Proxy port to listen on")
 	portSSL      = flag.String("port-ssl", ":11436", "Port to listen on")
 	proxyPortSSL = flag.String("proxy-port-ssl", ":11435", "Proxy port to listen on")
+	ollamaHost    = flag.String("proxy-host", "localhost", "Host to forward proxy requests to")
 	cert         = flag.String("cert", "", "Certificate file path *.crt")
 	key          = flag.String("key", "", "Key file path *.key")
 	model        = flag.String("model", "codellama:code", "LLM model to use")
@@ -31,8 +32,8 @@ func main() {
 		NumPredict:  *numPredict,
 	}
 
-	go internal.Proxy(*proxyPortSSL, *portSSL)
-	go internal.Proxy(*proxyPort, *port)
+	go internal.Proxy(*proxyPortSSL, *portSSL, *ollamaHost)
+	go internal.Proxy(*proxyPort, *port, *ollamaHost)
 
 	go server.Serve()
 	server.ServeTLS()

@@ -12,9 +12,9 @@ import (
 	"time"
 )
 
-func Proxy(port string, forward string) {
+func Proxy(port string, forward string, ollamaHost string) {
 	listener, err := net.Listen("tcp", port)
-	if err != nil {
+	if (err != nil) {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
@@ -26,7 +26,7 @@ func Proxy(port string, forward string) {
 			log.Fatalf("failed to accept: %v", err)
 		}
 
-		go handle(conn, forward)
+		go handle(conn, forward, ollamaHost)
 	}
 }
 
@@ -38,7 +38,7 @@ var hosts = []string{
 	"copilot-telemetry.githubusercontent.com",
 }
 
-func handle(conn net.Conn, forward string) {
+func handle(conn net.Conn, forward string, ollamaHost string) {
 	req, err := http.ReadRequest(bufio.NewReader(conn))
 	if err != nil {
 		conn.Close()
@@ -51,7 +51,7 @@ func handle(conn net.Conn, forward string) {
 	for _, host := range hosts {
 		if strings.Contains(req.URL.Hostname(), host) {
 			// This is a host we know and want to forward back to ourselves
-			address = "localhost" + forward
+			address = ollamaHost + forward
 			break
 		}
 	}
