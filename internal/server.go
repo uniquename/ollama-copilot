@@ -12,9 +12,9 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/bernardo-bruning/ollama-copilot/internal/handlers"
-	"github.com/bernardo-bruning/ollama-copilot/internal/middleware"
 	"github.com/ollama/ollama/api"
+	"github.com/uniquename/ollama-copilot/internal/handlers"
+	"github.com/uniquename/ollama-copilot/internal/middleware"
 )
 
 // Server is the main server struct.

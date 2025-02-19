@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/bernardo-bruning/ollama-copilot/internal/handlers"
+	"github.com/uniquename/ollama-copilot/internal/handlers"
 )
 
 func TestHealthHandler(t *testing.T) {
